@@ -12,17 +12,11 @@ app.use(express.json());
 /* Objetos e funções: */
 
 const UserList = [
-    {
-        username: 'Vinni_Evangelista', 
-        avatar: "https://pbs.twimg.com/media/FDo4mQQVEAIcWh6.jpg" 
-    }
+
 ]
 
 const TweetList = [
-    {
-        username: "Vinni_Evangelista",
-        tweet: "Será se esse negócio vai prestar???"
-    }
+
 ]
 
 function validação(val1, val2){
@@ -50,11 +44,26 @@ app.get('/tweets', (req,res) => {
         let objetoTweet = {username, avatar, tweet};
         Tweets.push(objetoTweet);
     }
+    Tweets.slice(-10);
     res.send(Tweets)
 })
 
 app.get('/users', (req,res) => {
     res.send(UserList);
+})
+app.get('/tweets/:username', (req,res) => {
+    let Tweets = [];
+    let user = req.params.username
+    for (let i = 0; i < TweetList.length; i++) {
+        if (TweetList[i].username === user) {
+            let username = TweetList[i].username;
+            let tweet = TweetList[i].tweet;
+            let avatar = UserList.find(element => element.username === username).avatar;
+            let objetoTweet = {username, avatar, tweet};
+            Tweets.push(objetoTweet);
+        }
+    }
+    res.send(Tweets)
 })
 
 
