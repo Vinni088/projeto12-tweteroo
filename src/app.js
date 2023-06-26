@@ -44,7 +44,7 @@ app.get('/tweets', (req,res) => {
         let objetoTweet = {username, avatar, tweet};
         Tweets.push(objetoTweet);
     }
-    Tweets.slice(-10);
+    Tweets.slice(-10, Tweets.length)
     res.send(Tweets)
 })
 
